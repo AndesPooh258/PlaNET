@@ -36,7 +36,7 @@ service cloud.firestore {
   }
 }
 ```
-Step 7. Replace "app/google-services.json" with the JSON file downloaded in the last step <br/>
+Step 7. Put the JSON file downloaded in the directory "app" (the file is now at "app/google-services.json")<br/>
 Step 8. In Android Studio click "Build > Build Bundles(s) / APK(s) > Build APK(s)" <br/>
 Step 9. The software executable file is in "app/build/outputs/apk/debug/app-debug.apk" <br/>
 
