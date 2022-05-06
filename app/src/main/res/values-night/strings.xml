@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sorted_by_deadline">Sort by Deadline</string>
+    <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="all_works">All Works</string>
+    <string name="header_filters">Filter</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="value_any_importance">Any Importance</string>
+    <string name="importance_1">*</string>
+    <string name="importance_2">**</string>
+    <string name="importance_3">***</string>
+    <string name="constraint_le"><![CDATA[<=]]></string>
+    <string name="value_any_constraint">Any</string>
+    <string name="showPast_false">Only Show Future Works</string>
+    <string name="showPast_true">Show All Works</string>
+    <string name="search_by_name">Search by Name</string>
+    <string name="search_by_tag">Search by Tag</string>
+    <string name="search_by_progress">Search by Progress (in %)</string>
+    <string name="search_by_deadline">Search by Deadline</string>
+    <string name="header_request">Request Name</string>
+    <string name="input_work_name">Input Work Name</string>
+    <string name="input_work_tag1">Tag 1 (Optional)</string>
+    <string name="done">Done</string>
+    <string name="hasTags_true">Has tag(s)</string>
+    <string name="hasTags_false">Does not have tags</string>
+    <string name="input_icon">Select Icon</string>
+    <string name="icon_default">Default</string>
+    <string name="icon_exam">Exam</string>
+    <string name="icon_homework">Homework</string>
+    <string name="icon_laboratory">Laboratory</string>
+    <string name="icon_meeting">Meeting</string>
+    <string name="icon_payment">Payment</string>
+    <string name="icon_presentation">Presentation</string>
+    <string name="icon_project">Project</string>
+    <string name="icon_reading">Reading</string>
+    <string name="create_work">Create Work</string>
+    <string name="edit_work">Edit Work</string>
+    <string name="work_statistics">Work Statistics</string>
+    <string name="actions">Actions</string>
+    <string name="add_task">Add Task</string>
+    <string name="log_out">Log Out</string>
+    <string name="rest_name">No more task</string>
+    <string name="rest_tags">Take some rest…</string>
+    <string name="rest_progress">100%</string>
+    <string name="rest_ddl">No deadline</string>
+    <string name="delete_work">Delete Work</string>
+    <string name="back_home">Back Home</string>
+    <string name="title_setting">Settings</string>
+    <string name="save_description">Save Description</string>
+    <string name="include_work_description">Include work description and click \"Edit Work\" to save changes</string>
+    <string name="description">Description:</string>
+    <string name="work_description_updated">Work description updated</string>
+</resources>

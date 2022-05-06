@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/filters_form"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp" >
+
+    <TextView
+        style="@style/Theme.PlaNET.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/header_filters" />
+
+    <!-- Name -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_name"
+            style="@style/Theme.PlaNET.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_name"
+            app:tint="@color/greySecondary" />
+
+        <EditText
+            android:id="@+id/editText_name"
+            style="@style/Theme.PlaNET.FilterEditText"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_name"
+            android:autofillHints="Search by Name"
+            android:hint="@string/search_by_name"
+            android:inputType="text"
+            android:text="" />
+
+    </RelativeLayout>
+
+    <!-- Tag -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_tag"
+            style="@style/Theme.PlaNET.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_tag"
+            app:tint="@color/greySecondary" />
+
+        <EditText
+            android:id="@+id/editText_tag"
+            style="@style/Theme.PlaNET.FilterEditText"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_tag"
+            android:autofillHints="Search by Tag"
+            android:hint="@string/search_by_tag"
+            android:inputType="text"
+            android:text="" />
+
+    </RelativeLayout>
+
+    <!-- Progress -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_progress"
+            style="@style/Theme.PlaNET.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_progress"
+            app:tint="@color/greySecondary" />
+
+        <EditText
+            android:id="@+id/editText_progress"
+            style="@style/Theme.PlaNET.FilterEditText"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_progress"
+            android:autofillHints="Search by Progress (in %)"
+            android:hint="@string/search_by_progress"
+            android:inputType="number"
+            android:text="" />
+
+    </RelativeLayout>
+
+    <!-- Importance -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_importance"
+            style="@style/Theme.PlaNET.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_importance"
+            app:tint="@color/greySecondary" />
+
+        <Spinner
+            android:id="@+id/spinner_importance"
+            style="@style/Theme.PlaNET.FilterSpinner"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_importance"
+            android:entries="@array/importance" />
+
+    </RelativeLayout>
+
+    <!-- Deadline -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_deadline"
+            style="@style/Theme.PlaNET.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_deadline"
+            app:tint="@color/greySecondary" />
+
+        <EditText
+            android:id="@+id/editText_deadline"
+            style="@style/Theme.PlaNET.FilterEditText"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_deadline"
+            android:autofillHints="Search by Deadline"
+            android:hint="@string/search_by_deadline"
+            android:inputType="datetime"
+            android:text="" />
+
+        <Spinner
+            android:id="@+id/constraint_deadline"
+            style="@style/Theme.PlaNET.FilterSpinner"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/editText_deadline"
+            android:entries="@array/constraint" />
+
+    </RelativeLayout>
+
+    <!-- Show past works -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_showPast"
+            style="@style/Theme.PlaNET.FilterIcon"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_showpast"
+            app:tint="@color/greySecondary" />
+
+        <Spinner
+            android:id="@+id/spinner_showPast"
+            style="@style/Theme.PlaNET.FilterSpinner"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon_showPast"
+            android:entries="@array/showPast" />
+
+    </RelativeLayout>
+
+    <!-- Cancel and apply buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="@color/greySecondary"
+            android:theme="@style/ThemeOverlay.FilterButton" />
+
+        <Button
+            android:id="@+id/button_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/apply"
+            android:theme="@style/ThemeOverlay.FilterButton" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
