@@ -71,11 +71,15 @@
     <string name="rest_ddl">No deadline</string>
     <string name="delete_work">Delete Work</string>
     <string name="back_home">Back Home</string>
-    <string name="save_description">Save Description</string>
-    <string name="include_work_description">Include work description here\nClick \"Edit Work\"
-        or \"Back Home\" to save</string>
-    <string name="description">Description:</string>
-    <string name="work_description_updated">Work description updated</string>
+    <string name="time0">Choose time</string>
+    <string name="time1">15 minutes prior</string>
+    <string name="time2">30 minutes prior</string>
+    <string name="time3">1 hour prior</string>
+    <string name="time4">2 hour prior</string>
+    <string name="time5">6 hour prior</string>
+    <string name="time6">12 hour prior</string>
+    <string name="time7">1 day prior</string>
+    <string name="time8">2 days prior</string>
 
     <string-array name="constraint">
         <item>@string/value_any_constraint</item>
@@ -96,6 +100,18 @@
         <item>@string/importance_1</item>
         <item>@string/importance_2</item>
         <item>@string/importance_3</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>@string/time0</item>
+        <item>@string/time1</item>
+        <item>@string/time2</item>
+        <item>@string/time3</item>
+        <item>@string/time4</item>
+        <item>@string/time5</item>
+        <item>@string/time6</item>
+        <item>@string/time7</item>
+        <item>@string/time8</item>
     </string-array>
 
     <string-array name="showPast">
