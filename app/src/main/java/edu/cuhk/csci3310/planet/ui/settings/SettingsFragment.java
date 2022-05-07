@@ -30,8 +30,8 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        textView.setText("This is the setting fragment");
+        /* final TextView textView = binding.textNotifications;
+        textView.setText("This is the setting fragment"); */
 
         return root;
     }

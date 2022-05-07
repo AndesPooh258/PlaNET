@@ -71,6 +71,11 @@
     <string name="rest_ddl">No deadline</string>
     <string name="delete_work">Delete Work</string>
     <string name="back_home">Back Home</string>
+    <string name="include_work_description">
+        Include work description and click \"Edit Work\" to save changes
+    </string>
+    <string name="description">Description:</string>
+    <string name="work_description_updated">Work description updated</string>
     <string name="time0">Choose time</string>
     <string name="time1">15 minutes prior</string>
     <string name="time2">30 minutes prior</string>
@@ -80,6 +85,10 @@
     <string name="time6">12 hour prior</string>
     <string name="time7">1 day prior</string>
     <string name="time8">2 days prior</string>
+    <string name="enable_notification">Enable Notification</string>
+    <string name="remind_me">Remind me there\'s an event:</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="update_setting">Update Setting</string>
 
     <string-array name="constraint">
         <item>@string/value_any_constraint</item>

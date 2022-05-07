@@ -46,9 +46,12 @@
     <string name="rest_ddl">No deadline</string>
     <string name="delete_work">Delete Work</string>
     <string name="back_home">Back Home</string>
-    <string name="title_setting">Settings</string>
-    <string name="save_description">Save Description</string>
+    <string name="title_settings">Settings</string>
     <string name="include_work_description">Include work description and click \"Edit Work\" to save changes</string>
     <string name="description">Description:</string>
     <string name="work_description_updated">Work description updated</string>
+    <string name="enable_notification">Enable Notification</string>
+    <string name="remind_me">Remind me there\'s an event:</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="update_setting">Update Setting</string>
 </resources>
