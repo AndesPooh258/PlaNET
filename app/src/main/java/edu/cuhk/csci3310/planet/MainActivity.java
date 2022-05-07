@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         String sharedPrefFile = "edu.cuhk.csci3310.planet";
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         mViewModel.setEmail(mPreferences.getString("email", null));
+        mViewModel.setDarkMode(mPreferences.getBoolean("dark_mode", false));
         // set-up bottom navigation activity
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        // set to dark mode if necessary
+        if (mViewModel.getDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
     }
 
     @Override

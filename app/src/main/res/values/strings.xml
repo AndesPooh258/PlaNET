@@ -91,6 +91,7 @@
     <string name="input_time_zone">Input Time Zone</string>
     <string name="invalid_input">Your input is invalid, please check again</string>
     <string name="setting_updated">Setting updated</string>
+    <string name="settings_remark">Remark: restart the app to see the change in dark mode</string>
 
     <string-array name="constraint">
         <item>@string/value_any_constraint</item>
