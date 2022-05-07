@@ -71,9 +71,8 @@
     <string name="rest_ddl">No deadline</string>
     <string name="delete_work">Delete Work</string>
     <string name="back_home">Back Home</string>
-    <string name="include_work_description">
-        Include work description and click \"Edit Work\" to save changes
-    </string>
+    <string name="include_work_description">Include work description here\nClick \"Edit Work\"
+        or \"Back Home\" to save</string>
     <string name="description">Description:</string>
     <string name="work_description_updated">Work description updated</string>
     <string name="time0">Choose time</string>
