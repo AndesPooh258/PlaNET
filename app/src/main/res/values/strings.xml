@@ -75,19 +75,20 @@
         or \"Back Home\" to save</string>
     <string name="description">Description:</string>
     <string name="work_description_updated">Work description updated</string>
-    <string name="time0">Choose time</string>
+    <string name="time0">Don\'t remind me</string>
     <string name="time1">15 minutes prior</string>
     <string name="time2">30 minutes prior</string>
     <string name="time3">1 hour prior</string>
-    <string name="time4">2 hour prior</string>
-    <string name="time5">6 hour prior</string>
-    <string name="time6">12 hour prior</string>
-    <string name="time7">1 day prior</string>
-    <string name="time8">2 days prior</string>
+    <string name="time4">6 hour prior</string>
+    <string name="time5">12 hour prior</string>
+    <string name="time6">1 day prior</string>
+    <string name="time7">2 days prior</string>
     <string name="enable_notification">Enable Notification</string>
     <string name="remind_me">Remind me there\'s an event:</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="update_setting">Update Setting</string>
+    <string name="time_zone">Time Zone:</string>
+    <string name="input_time_zone">Input Time Zone</string>
 
     <string-array name="constraint">
         <item>@string/value_any_constraint</item>
@@ -119,7 +120,6 @@
         <item>@string/time5</item>
         <item>@string/time6</item>
         <item>@string/time7</item>
-        <item>@string/time8</item>
     </string-array>
 
     <string-array name="showPast">
