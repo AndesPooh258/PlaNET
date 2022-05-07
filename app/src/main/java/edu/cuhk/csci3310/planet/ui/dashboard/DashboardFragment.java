@@ -1,9 +1,13 @@
 package edu.cuhk.csci3310.planet.ui.dashboard;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,8 +38,9 @@ public class DashboardFragment extends Fragment implements
 
     static final String mDrawableFilePath = "android.resource://edu.cuhk.csci3310.planet/drawable/";
     private DashboardViewModel mDashboardViewModel;
-    private FragmentDashboardBinding binding;
     private FirebaseFirestore mFirestore;
+    private SharedPreferences mPreferences;
+    private FragmentDashboardBinding binding;
     private RequestDialogFragment mRequestDialog;
     private ImageView imageItemView;
     private TextView nameTextView;
@@ -49,13 +54,19 @@ public class DashboardFragment extends Fragment implements
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        // initialize view model
+        mDashboardViewModel =
+                new ViewModelProvider(this).get(DashboardViewModel.class);
         // enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
         // initialize Firestore
         mFirestore = DBUtil.initFirestore();
-        // initialize view model
-        mDashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        // get shared preference
+        String sharedPrefFile = "edu.cuhk.csci3310.planet";
+        if (getActivity() != null) {
+            mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        }
+        mDashboardViewModel.setTimezone(mPreferences.getInt("timezone", 8));
         // initialize view
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -118,7 +129,7 @@ public class DashboardFragment extends Fragment implements
 
     public void updateDashboard() {
         String email = mDashboardViewModel.getEmail();
-        String currentTime = WorkUtil.getDeadlineString(LocalDateTime.now().plusHours(8));
+        String currentTime = WorkUtil.getCurrentTimeString(mDashboardViewModel.getTimezone());
         mFirestore.collection("works")
                 .whereEqualTo("email", email)
                 .get().addOnSuccessListener(result -> {

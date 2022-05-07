@@ -178,10 +178,10 @@ public class RequestDialogFragment extends DialogFragment implements
             dismiss();
         } else {
             // display invalid input message
-            Toast testToast = Toast.makeText(getContext(),
-                    "Your input is invalid, please check again",
+            Toast invalidToast = Toast.makeText(getContext(),
+                    R.string.invalid_input,
                     Toast.LENGTH_LONG);
-            testToast.show();
+            invalidToast.show();
         }
     }
 

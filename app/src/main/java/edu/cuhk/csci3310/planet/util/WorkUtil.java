@@ -31,6 +31,13 @@ public class WorkUtil {
     }
 
     /**
+     * Get current time as formatted string
+     */
+    public static String getCurrentTimeString(int timezone) {
+        return getDeadlineString(LocalDateTime.now().plusHours(timezone));
+    }
+
+    /**
      * Get tags as formatted string
      */
     public static String getTagsString(Work work) {

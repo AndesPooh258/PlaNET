@@ -25,10 +25,10 @@ import edu.cuhk.csci3310.planet.util.WorkUtil;
 public class WorkDetailActivity extends AppCompatActivity implements
     RequestDialogFragment.ChangeListener {
 
+    static final String mDrawableFilePath = "android.resource://edu.cuhk.csci3310.planet/drawable/";
     private DetailActivityViewModel mDetailViewModel;
     private FirebaseFirestore mFirestore;
     private RequestDialogFragment mRequestDialog;
-    static final String mDrawableFilePath = "android.resource://edu.cuhk.csci3310.planet/drawable/";
     private ImageView imageDetailView;
     private TextView nameTextView;
     private TextView deadlineTextView;
@@ -106,11 +106,11 @@ public class WorkDetailActivity extends AppCompatActivity implements
             if (!description.equals(work.getDescription())) {
                 work.setDescription(description);
                 DBUtil.work_update(mFirestore, mDetailViewModel.getWorkId(), work);
-                // display invalid input message
-                Toast testToast = Toast.makeText(this,
+                // display update message
+                Toast updateToast = Toast.makeText(this,
                         R.string.work_description_updated,
                         Toast.LENGTH_LONG);
-                testToast.show();
+                updateToast.show();
             }
         }
         onBackPressed();

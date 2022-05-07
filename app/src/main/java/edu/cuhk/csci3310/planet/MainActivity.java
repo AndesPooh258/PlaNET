@@ -21,8 +21,8 @@ import edu.cuhk.csci3310.planet.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 9001;
-    private SharedPreferences mPreferences;
     private MainActivityViewModel mViewModel;
+    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

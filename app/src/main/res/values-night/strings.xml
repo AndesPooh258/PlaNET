@@ -57,4 +57,6 @@
     <string name="update_setting">Update Setting</string>
     <string name="time_zone">Time Zone:</string>
     <string name="input_time_zone">Input Time Zone</string>
+    <string name="invalid_input">Your input is invalid, please check again</string>
+    <string name="setting_updated">Setting updated, restart the app to view change</string>
 </resources>

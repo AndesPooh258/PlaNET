@@ -9,7 +9,10 @@ public class MainActivityViewModel extends ViewModel {
 
     private boolean isSigningIn = false;
     private boolean isSignedIn = false;
+    private boolean dark_mode = false;
     private String email = null;
+    private int timezone = 8;
+    private int reminder_time = -1;
 
     public MainActivityViewModel() {}
 
@@ -25,6 +28,14 @@ public class MainActivityViewModel extends ViewModel {
         return isSignedIn;
     }
 
+    public boolean getDarkMode() {
+        return dark_mode;
+    }
+
+    public void setDarkMode(boolean dark_mode) {
+        this.dark_mode = dark_mode;
+    }
+
     public void setIsSignedIn(boolean isSignedIn) {
         this.isSignedIn = isSignedIn;
     }
@@ -35,5 +46,21 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setEmail(String email){
         this.email = email;
+    }
+
+    public int getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(int timezone) {
+        this.timezone = timezone >= -12 && timezone <= 14 ? timezone : 8;
+    }
+
+    public int getReminderTime() {
+        return reminder_time;
+    }
+
+    public void setReminderTime(int reminder_time) {
+        this.reminder_time = reminder_time >= 0 ? reminder_time : -1;
     }
 }

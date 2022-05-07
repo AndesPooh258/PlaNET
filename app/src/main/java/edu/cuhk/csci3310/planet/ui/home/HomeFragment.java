@@ -1,8 +1,10 @@
 package edu.cuhk.csci3310.planet.ui.home;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.text.Html.FROM_HTML_MODE_COMPACT;
 import java.time.LocalDateTime;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -39,29 +41,36 @@ public class HomeFragment extends Fragment implements
         FilterDialogFragment.FilterListener,
         WorkAdapter.OnWorkSelectedListener {
 
+    public static final String Id_MESSAGE = "edu.cuhk.csci3310.planet.id.MESSAGE";
+    public static final String WORK_MESSAGE = "edu.cuhk.csci3310.planet.work.MESSAGE";
     private HomeViewModel mHomeViewModel;
-    private FragmentHomeBinding binding;
     private FirebaseFirestore mFirestore;
+    private SharedPreferences mPreferences;
     private WorkAdapter mAdapter;
     private Query mQuery;
+    private FragmentHomeBinding binding;
     private RecyclerView mWorksRecycler;
     private ViewGroup mEmptyView;
     private TextView mCurrentSearchView;
     private TextView mCurrentSortByView;
     private FilterDialogFragment mFilterDialog;
-    public static final String Id_MESSAGE = "edu.cuhk.csci3310.planet.id.MESSAGE";
-    public static final String WORK_MESSAGE = "edu.cuhk.csci3310.planet.work.MESSAGE";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState){
+        // initialize view model
+        mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         // enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
         // initialize Firestore
         mFirestore = DBUtil.initFirestore();
         mQuery = mFirestore.collection("works")
                 .orderBy("deadline", Query.Direction.ASCENDING);
-        // initialize view model
-        mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        // get shared preference
+        String sharedPrefFile = "edu.cuhk.csci3310.planet";
+        if (getActivity() != null) {
+            mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        }
+        mHomeViewModel.setTimezone(mPreferences.getInt("timezone", 8));
         // initialize view
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -212,7 +221,7 @@ public class HomeFragment extends Fragment implements
         }
         // show past filter
         if (!filters.getShowPast()) {
-            String currentTime = WorkUtil.getDeadlineString(LocalDateTime.now().plusHours(8));
+            String currentTime = WorkUtil.getCurrentTimeString(mHomeViewModel.getTimezone());
             query = query.whereGreaterThanOrEqualTo("deadline", currentTime);
         }
         // sort with deadlines by ascending order
