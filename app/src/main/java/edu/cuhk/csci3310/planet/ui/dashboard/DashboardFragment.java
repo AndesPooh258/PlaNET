@@ -118,7 +118,7 @@ public class DashboardFragment extends Fragment implements
 
     public void updateDashboard() {
         String email = mDashboardViewModel.getEmail();
-        String currentTime = WorkUtil.getDeadlineString(LocalDateTime.now());
+        String currentTime = WorkUtil.getDeadlineString(LocalDateTime.now().plusHours(8));
         mFirestore.collection("works")
                 .whereEqualTo("email", email)
                 .get().addOnSuccessListener(result -> {
