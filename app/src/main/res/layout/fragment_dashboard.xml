@@ -36,7 +36,7 @@
             style="@style/Theme.PlaNET.DashboardIcon"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_all_task"
-            app:tint="@color/greySecondary" />
+            app:tint="?attr/colorTertiary" />
 
         <TextView
             android:id="@+id/textView_all"
@@ -61,7 +61,7 @@
             style="@style/Theme.PlaNET.DashboardIcon"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_completed_task"
-            app:tint="@color/greySecondary" />
+            app:tint="?attr/colorTertiary" />
 
         <TextView
             android:id="@+id/textView_completed"
@@ -86,7 +86,7 @@
             style="@style/Theme.PlaNET.DashboardIcon"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_todo_task"
-            app:tint="@color/greySecondary" />
+            app:tint="?attr/colorTertiary" />
 
         <TextView
             android:id="@+id/textView_todo"

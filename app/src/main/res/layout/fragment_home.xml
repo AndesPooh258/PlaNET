@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    android:background="?attr/colorOnPrimary"
     tools:context=".ui.home.HomeFragment">
 
     <FrameLayout
         android:id="@+id/filter_bar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorTertiaryContainer"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         android:paddingBottom="12dp"
@@ -38,7 +38,7 @@
                     android:layout_centerVertical="true"
                     android:padding="8dp"
                     app:srcCompat="@drawable/ic_filter_list_white_24px"
-                    app:tint="@color/greySecondary" />
+                    app:tint="?attr/colorTertiary" />
 
                 <LinearLayout
                     android:id="@+id/text_current_search_container"
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/all_works"
-                        android:textColor="@color/greySecondary"
+                        android:textColor="?attr/colorTertiary"
                         tools:text="Filter" />
 
                     <TextView
@@ -66,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sorted_by_deadline"
-                        android:textColor="@color/greyDisabled" />
+                        android:textColor="?attr/colorOnTertiary" />
 
                 </LinearLayout>
 
@@ -78,21 +78,12 @@
                     android:layout_centerVertical="true"
                     android:padding="8dp"
                     app:srcCompat="@drawable/ic_close_white_24px"
-                    app:tint="@color/greySecondary" />
+                    app:tint="?attr/colorTertiary" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
     </FrameLayout>
-
-    <!-- Main Restaurants recycler -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_works"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/filter_bar_container"
-        tools:listitem="@layout/item_work" />
 
     <!-- Shadow below toolbar -->
     <View
@@ -100,6 +91,15 @@
         android:layout_height="4dp"
         app:layout_constraintTop_toBottomOf="@+id/filter_bar_container"
         android:background="@drawable/bg_shadow" />
+
+    <!-- Main Works recycler -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_works"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorOnPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/filter_bar_container"
+        tools:listitem="@layout/item_work" />
 
     <!-- Empty list (pizza guy) view -->
     <LinearLayout
