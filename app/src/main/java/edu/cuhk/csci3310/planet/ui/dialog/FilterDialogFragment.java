@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.model.Filters;
 import edu.cuhk.csci3310.planet.ui.home.HomeFragment;
@@ -18,8 +20,6 @@ import edu.cuhk.csci3310.planet.ui.home.HomeFragment;
  */
 public class FilterDialogFragment extends DialogFragment implements
         View.OnClickListener {
-
-    public static final String TAG = "FilterDialog";
 
     public FilterDialogFragment() {
         // required empty public constructor

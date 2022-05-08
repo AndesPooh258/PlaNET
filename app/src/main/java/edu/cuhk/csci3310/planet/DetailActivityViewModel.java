@@ -1,12 +1,11 @@
 package edu.cuhk.csci3310.planet;
 
-import androidx.lifecycle.ViewModel;
 import edu.cuhk.csci3310.planet.model.Work;
 
 /**
  * View model of WorkDetailActivity.
  */
-public class DetailActivityViewModel extends ViewModel {
+public class DetailActivityViewModel extends MainActivityViewModel {
 
     private String workId;
     private Work mWork;

@@ -1,8 +1,9 @@
 package edu.cuhk.csci3310.planet.model;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.io.Serializable;
 import java.util.List;
-import com.google.firebase.firestore.IgnoreExtraProperties;
 
 /**
  * Work POJO.
@@ -11,7 +12,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 public class Work implements Serializable {
 
     public static final String FIELD_DEADLINE = "deadline";
-
     private String email; // email of creator
     private String title; // title of work
     private String icon; // icon of work
@@ -46,7 +46,7 @@ public class Work implements Serializable {
     public void setTitle(String title){
         this.title = title;
     }
-	
+
 	public String getIcon(){
 		return icon;
 	}
@@ -70,11 +70,11 @@ public class Work implements Serializable {
 	public String getDeadline(){
 		return deadline;
 	}
-	
+
 	public void setDeadline(String deadline){
 		this.deadline = deadline;
 	}
-	
+
 	public List<String> getTags(){
 		return tags;
 	}

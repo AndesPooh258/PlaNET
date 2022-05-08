@@ -1,6 +1,7 @@
 package edu.cuhk.csci3310.planet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,11 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import edu.cuhk.csci3310.planet.model.Work;
 import edu.cuhk.csci3310.planet.ui.dialog.RequestDialogFragment;
 import edu.cuhk.csci3310.planet.ui.home.HomeFragment;
 import edu.cuhk.csci3310.planet.util.DBUtil;
+import edu.cuhk.csci3310.planet.util.NotificationUtils;
 import edu.cuhk.csci3310.planet.util.WorkUtil;
 
 /**
@@ -28,6 +32,7 @@ public class WorkDetailActivity extends AppCompatActivity implements
     static final String mDrawableFilePath = "android.resource://edu.cuhk.csci3310.planet/drawable/";
     private DetailActivityViewModel mDetailViewModel;
     private FirebaseFirestore mFirestore;
+    private SharedPreferences mPreferences;
     private RequestDialogFragment mRequestDialog;
     private ImageView imageDetailView;
     private TextView nameTextView;
@@ -42,16 +47,21 @@ public class WorkDetailActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_detail);
+        // initialize view model
+        mDetailViewModel = new ViewModelProvider(this).get(DetailActivityViewModel.class);
         // enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
         // initialize Firestore
         mFirestore = DBUtil.initFirestore();
-        // get information about the work
+        // get shared preference
+        String sharedPrefFile = "edu.cuhk.csci3310.planet";
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        mDetailViewModel.setEmail(mPreferences.getString("email", null));
+        mDetailViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
+        // get intent
         Intent intent = getIntent();
         String id = (String) intent.getExtras().get(HomeFragment.Id_MESSAGE);
         Work work = (Work) intent.getExtras().get(HomeFragment.WORK_MESSAGE);
-        // initialize view model
-        mDetailViewModel = new ViewModelProvider(this).get(DetailActivityViewModel.class);
         mDetailViewModel.setWorkId(id);
         mDetailViewModel.setWork(work);
         if (work != null) {
@@ -67,7 +77,8 @@ public class WorkDetailActivity extends AppCompatActivity implements
             // set view content
             updateUI(work);
             // initialize fragment
-            mRequestDialog = RequestDialogFragment.newInstance(work.getEmail(), id, work);
+            mRequestDialog = RequestDialogFragment.newInstance(
+                    work.getEmail(), id, work, mDetailViewModel.getReminderTime());
         } else onBackPressed();
     }
 
@@ -89,13 +100,16 @@ public class WorkDetailActivity extends AppCompatActivity implements
     public void editWork(View view) {
         // show the dialog containing edit work form
         if (!mRequestDialog.isAdded()) {
-            mRequestDialog.show(getSupportFragmentManager(), RequestDialogFragment.TAG);
+            mRequestDialog.show(getSupportFragmentManager(), null);
         }
     }
 
     public void deleteWork(View view) {
         // delete the work
-        DBUtil.work_delete(mFirestore, mDetailViewModel.getWorkId());
+        DBUtil.work_delete(mFirestore, mDetailViewModel.getWorkId(),
+                aVoid -> NotificationUtils.reminderNotification(getBaseContext(), mFirestore,
+                        mDetailViewModel.getEmail(),
+                        mDetailViewModel.getReminderTime()));
         onBackPressed();
     }
 
@@ -105,7 +119,7 @@ public class WorkDetailActivity extends AppCompatActivity implements
         if (work != null) {
             if (!description.equals(work.getDescription())) {
                 work.setDescription(description);
-                DBUtil.work_update(mFirestore, mDetailViewModel.getWorkId(), work);
+                DBUtil.work_update(mFirestore, mDetailViewModel.getWorkId(), work, null);
                 // display update message
                 Toast updateToast = Toast.makeText(this,
                         R.string.work_description_updated,
@@ -120,7 +134,8 @@ public class WorkDetailActivity extends AppCompatActivity implements
     public void onChange(Work work) {
         mDetailViewModel.setWork(work);
         mRequestDialog = RequestDialogFragment.newInstance(
-                         work.getEmail(), mDetailViewModel.getWorkId(), work);
+                         work.getEmail(), mDetailViewModel.getWorkId(),
+                         work, mDetailViewModel.getReminderTime());
         updateUI(work);
     }
 

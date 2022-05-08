@@ -1,10 +1,5 @@
 package edu.cuhk.csci3310.planet.ui.dialog;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,13 +9,23 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.model.Work;
 import edu.cuhk.csci3310.planet.ui.dashboard.DashboardFragment;
 import edu.cuhk.csci3310.planet.util.DBUtil;
+import edu.cuhk.csci3310.planet.util.NotificationUtils;
 
 /**
  * Dialog Fragment containing request form.
@@ -28,16 +33,17 @@ import edu.cuhk.csci3310.planet.util.DBUtil;
 public class RequestDialogFragment extends DialogFragment implements
         View.OnClickListener {
 
-    public static final String TAG = "RequestDialog";
     private static final String ARG_EMAIL = "email";
     private static final String ARG_WORKID = "workId";
     private static final String ARG_WORK = "mWork";
+    private static final String ARG_REMINDER_TIME = "reminder_time";
     private FirebaseFirestore mFirestore;
     private ChangeListener mChangeListener;
     private String request_type;
     private String email;
     private String workId;
     private Work mWork;
+    private int reminder_time;
     private EditText nameEditText;
     private Spinner iconSpinner;
     private Spinner tagSpinner;
@@ -57,12 +63,14 @@ public class RequestDialogFragment extends DialogFragment implements
     }
 
     // factory method to create new instance
-    public static RequestDialogFragment newInstance(String email, String workId, Work mWork) {
+    public static RequestDialogFragment newInstance(String email, String workId, Work mWork,
+                                                    int reminder_time) {
         RequestDialogFragment fragment = new RequestDialogFragment();
         Bundle args = new Bundle();
         args.putString(ARG_EMAIL, email);
         args.putString(ARG_WORKID, workId);
         args.putSerializable(ARG_WORK, mWork);
+        args.putInt(ARG_REMINDER_TIME, reminder_time);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,6 +82,7 @@ public class RequestDialogFragment extends DialogFragment implements
             email = getArguments().getString(ARG_EMAIL);
             workId = getArguments().getString(ARG_WORKID);
             mWork = (Work) getArguments().getSerializable(ARG_WORK);
+            reminder_time = (int) getArguments().getInt(ARG_REMINDER_TIME);
             request_type = workId == null || mWork == null ? "create" : "edit";
         }
     }
@@ -164,11 +173,16 @@ public class RequestDialogFragment extends DialogFragment implements
             deadline = deadline == null ? mWork.getDeadline() : deadline;
             Work newWork = new Work(email, title, icon, progress, importance,
                     deadline, tags, description);
+            Context context = getContext();
             // perform desired operation
             if (request_type.equals("create")){
-                DBUtil.work_insert(mFirestore, newWork);
+                DBUtil.work_insert(mFirestore, newWork,
+                        aRef -> NotificationUtils.reminderNotification(
+                                context, mFirestore, email, reminder_time));
             } else {
-                DBUtil.work_update(mFirestore, workId, newWork);
+                DBUtil.work_update(mFirestore, workId, newWork,
+                        aVoid -> NotificationUtils.reminderNotification(
+                                context, mFirestore, email, reminder_time));
             }
             // inform change
             if (mChangeListener != null) {

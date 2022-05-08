@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
+
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.model.Work;
 import edu.cuhk.csci3310.planet.util.WorkUtil;

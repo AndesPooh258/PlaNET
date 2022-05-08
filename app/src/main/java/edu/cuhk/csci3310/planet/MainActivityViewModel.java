@@ -11,7 +11,6 @@ public class MainActivityViewModel extends ViewModel {
     private boolean isSignedIn = false;
     private boolean dark_mode = false;
     private String email = null;
-    private int timezone = 8;
     private int reminder_time = -1;
 
     public MainActivityViewModel() {}
@@ -46,14 +45,6 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setEmail(String email){
         this.email = email;
-    }
-
-    public int getTimezone() {
-        return timezone;
-    }
-
-    public void setTimezone(int timezone) {
-        this.timezone = timezone >= -12 && timezone <= 14 ? timezone : 8;
     }
 
     public int getReminderTime() {

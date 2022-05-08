@@ -2,6 +2,7 @@ package edu.cuhk.csci3310.planet.model;
 
 import android.content.Context;
 import android.text.TextUtils;
+
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.util.WorkUtil;
 
@@ -18,7 +19,8 @@ public class Filters {
     private int deadline_constraint = -2; // constraint: -2 => any, -1 => le, 0 => eq, 1 => ge
     private boolean showPast = false;
 
-    public Filters() {}
+    public Filters() {
+    }
 
     public static Filters getDefault() {
         return new Filters();
@@ -119,13 +121,13 @@ public class Filters {
             desc.append(" with tag ");
         }
 
-        if (tag != null){
+        if (tag != null) {
             desc.append("<b>");
             desc.append(tag);
             desc.append("</b>");
         }
 
-        if (importance > 0){
+        if (importance > 0) {
             desc.append(" for importance = ");
             desc.append("<b>");
             desc.append(WorkUtil.getImportanceString(importance));

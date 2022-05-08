@@ -1,7 +1,13 @@
 package edu.cuhk.csci3310.planet.util;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.cuhk.csci3310.planet.model.Work;
 
 /**
@@ -9,29 +15,46 @@ import edu.cuhk.csci3310.planet.model.Work;
  */
 public class DBUtil {
 
+    /**
+     * Initialize Firestore database
+     */
     public static FirebaseFirestore initFirestore(){
         return FirebaseFirestore.getInstance();
     }
 
-    public static void work_insert(FirebaseFirestore mFirestore, Work work) {
+    /**
+     * Insert a new work to database
+     */
+    public static void work_insert(FirebaseFirestore mFirestore, Work work,
+                                   OnSuccessListener<DocumentReference> onSuccessListener) {
         CollectionReference works = mFirestore.collection("works");
-        works.add(work);
+        works.add(work).addOnSuccessListener(onSuccessListener);
     }
 
-    public static void work_update(FirebaseFirestore mFirestore, String id, Work work) {
+    /**
+     * Update a work with specified ID
+     */
+    public static void work_update(FirebaseFirestore mFirestore, String id, Work work,
+                                   OnSuccessListener<Void> onSuccessListener) {
         CollectionReference works = mFirestore.collection("works");
-        works.document(id).update("title", work.getTitle());
-        works.document(id).update("icon", work.getIcon());
-        works.document(id).update("importance", work.getImportance());
-        works.document(id).update("progress", work.getProgress());
-        works.document(id).update("deadline", work.getDeadline());
-        works.document(id).update("tags", work.getTags());
-        works.document(id).update("description", work.getDescription());
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", work.getTitle());
+        map.put("icon", work.getIcon());
+        map.put("importance", work.getImportance());
+        map.put("progress", work.getProgress());
+        map.put("deadline", work.getDeadline());
+        map.put("tags", work.getTags());
+        map.put("description", work.getDescription());
+        works.document(id).update(map).addOnSuccessListener(onSuccessListener);
     }
 
-    public static void work_delete(FirebaseFirestore mFirestore, String id) {
+    /**
+     * Delete a work with specified ID
+     */
+    public static void work_delete(FirebaseFirestore mFirestore, String id,
+                                   OnSuccessListener<Void> onSuccessListener) {
         CollectionReference works = mFirestore.collection("works");
-        works.document(id).delete();
+        works.document(id).delete().addOnSuccessListener(onSuccessListener);
     }
 
 }

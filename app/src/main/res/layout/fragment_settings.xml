@@ -19,39 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/timezone_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/switch_dark_mode" >
-
-        <TextView
-            android:id="@+id/timezone_text"
-            style="@style/Theme.PlaNET.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time_zone"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/subtitle" />
-
-        <EditText
-            android:id="@+id/editText_timezone"
-            style="@style/Theme.PlaNET.FilterEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/timezone_text"
-            android:layout_marginStart="8dp"
-            android:autofillHints="Input Time Zone"
-            android:hint="@string/input_time_zone"
-            android:inputType="numberSigned"
-            android:text=""/>
-
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/textView_remind"
         style="@style/Theme.PlaNET.Title"
@@ -64,7 +31,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timezone_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_dark_mode" />
 
     <Spinner
         android:id="@+id/spinner_reminder_time"
@@ -115,5 +82,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remark_layout" />
+
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#673AB7"
+        android:text="@string/log_out"
+        android:textAlignment="center"
+        android:textColor="#F8F8F8"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_update"
+        android:theme="@style/ThemeOverlay.FilterButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,11 +2,6 @@ package edu.cuhk.csci3310.planet.ui.dashboard;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
-
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,13 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import edu.cuhk.csci3310.planet.MainActivity;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.databinding.FragmentDashboardBinding;
 import edu.cuhk.csci3310.planet.model.Work;
@@ -55,8 +57,7 @@ public class DashboardFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // initialize view model
-        mDashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        mDashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         // enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
         // initialize Firestore
@@ -65,8 +66,8 @@ public class DashboardFragment extends Fragment implements
         String sharedPrefFile = "edu.cuhk.csci3310.planet";
         if (getActivity() != null) {
             mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+            mDashboardViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
         }
-        mDashboardViewModel.setTimezone(mPreferences.getInt("timezone", 8));
         // initialize view
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -81,9 +82,7 @@ public class DashboardFragment extends Fragment implements
         todoTextView = root.findViewById(R.id.textView_todo);
         // set onClickListener
         View add_button = root.findViewById(R.id.button_add);
-        View logout_button = root.findViewById(R.id.button_logout);
         add_button.setOnClickListener(this);
-        logout_button.setOnClickListener(this);
         return root;
     }
 
@@ -99,7 +98,9 @@ public class DashboardFragment extends Fragment implements
                 mDashboardViewModel.setIsSignedIn(true);
                 // initialize fragment
                 String email = mDashboardViewModel.getEmail();
-                mRequestDialog = RequestDialogFragment.newInstance(email, null, null);
+                int reminder_time = mDashboardViewModel.getReminderTime();
+                mRequestDialog = RequestDialogFragment.newInstance(
+                        email, null, null, reminder_time);
                 updateDashboard();
             }
         }
@@ -129,7 +130,7 @@ public class DashboardFragment extends Fragment implements
 
     public void updateDashboard() {
         String email = mDashboardViewModel.getEmail();
-        String currentTime = WorkUtil.getCurrentTimeString(mDashboardViewModel.getTimezone());
+        String currentTime = WorkUtil.getCurrentTimeString();
         mFirestore.collection("works")
                 .whereEqualTo("email", email)
                 .get().addOnSuccessListener(result -> {
@@ -205,7 +206,7 @@ public class DashboardFragment extends Fragment implements
 
     public void addWork() {
         // show the dialog containing add work form
-        mRequestDialog.show(getParentFragmentManager(), RequestDialogFragment.TAG);
+        mRequestDialog.show(getParentFragmentManager(), null);
     }
 
     @Override
@@ -221,16 +222,8 @@ public class DashboardFragment extends Fragment implements
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.button_add){
+        if (view.getId() == R.id.button_add){
             addWork();
-        } else if (id == R.id.button_logout) {
-            mDashboardViewModel.setIsSignedIn(false);
-            mDashboardViewModel.setEmail(null);
-            MainActivity mainActivity = (MainActivity) this.getActivity();
-            if (mainActivity != null){
-                mainActivity.startSignOut();
-            }
         }
     }
 }

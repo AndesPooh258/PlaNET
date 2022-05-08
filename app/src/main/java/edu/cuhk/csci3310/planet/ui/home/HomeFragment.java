@@ -2,7 +2,7 @@ package edu.cuhk.csci3310.planet.ui.home;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.text.Html.FROM_HTML_MODE_COMPACT;
-import java.time.LocalDateTime;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,15 +25,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.WorkDetailActivity;
 import edu.cuhk.csci3310.planet.adapter.WorkAdapter;
 import edu.cuhk.csci3310.planet.databinding.FragmentHomeBinding;
 import edu.cuhk.csci3310.planet.model.Filters;
 import edu.cuhk.csci3310.planet.model.Work;
+import edu.cuhk.csci3310.planet.ui.dialog.FilterDialogFragment;
 import edu.cuhk.csci3310.planet.util.DBUtil;
 import edu.cuhk.csci3310.planet.util.WorkUtil;
-import edu.cuhk.csci3310.planet.ui.dialog.FilterDialogFragment;
 
 /**
  * Fragment containing the home page.
@@ -49,11 +52,11 @@ public class HomeFragment extends Fragment implements
     private WorkAdapter mAdapter;
     private Query mQuery;
     private FragmentHomeBinding binding;
+    private FilterDialogFragment mFilterDialog;
     private RecyclerView mWorksRecycler;
     private ViewGroup mEmptyView;
     private TextView mCurrentSearchView;
     private TextView mCurrentSortByView;
-    private FilterDialogFragment mFilterDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState){
@@ -69,8 +72,8 @@ public class HomeFragment extends Fragment implements
         String sharedPrefFile = "edu.cuhk.csci3310.planet";
         if (getActivity() != null) {
             mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+            mHomeViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
         }
-        mHomeViewModel.setTimezone(mPreferences.getInt("timezone", 8));
         // initialize view
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -169,7 +172,7 @@ public class HomeFragment extends Fragment implements
     public void onFilterClicked() {
         // show the dialog containing filter options
         if (!mFilterDialog.isAdded()) {
-            mFilterDialog.show(getParentFragmentManager(), FilterDialogFragment.TAG);
+            mFilterDialog.show(getParentFragmentManager(), null);
         }
     }
 
@@ -221,7 +224,7 @@ public class HomeFragment extends Fragment implements
         }
         // show past filter
         if (!filters.getShowPast()) {
-            String currentTime = WorkUtil.getCurrentTimeString(mHomeViewModel.getTimezone());
+            String currentTime = WorkUtil.getCurrentTimeString();
             query = query.whereGreaterThanOrEqualTo("deadline", currentTime);
         }
         // sort with deadlines by ascending order

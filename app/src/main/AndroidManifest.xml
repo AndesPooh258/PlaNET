@@ -22,6 +22,7 @@
         <activity
             android:name="edu.cuhk.csci3310.planet.WorkDetailActivity">
         </activity>
+        <receiver android:name=".reminder.ReminderBroadcast"/>
     </application>
 
 </manifest>

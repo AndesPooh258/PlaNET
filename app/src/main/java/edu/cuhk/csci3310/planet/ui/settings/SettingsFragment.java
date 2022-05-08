@@ -1,20 +1,27 @@
 package edu.cuhk.csci3310.planet.ui.settings;
 
 import static android.content.Context.MODE_PRIVATE;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import edu.cuhk.csci3310.planet.MainActivity;
 import edu.cuhk.csci3310.planet.R;
 import edu.cuhk.csci3310.planet.databinding.FragmentSettingsBinding;
+import edu.cuhk.csci3310.planet.util.DBUtil;
+import edu.cuhk.csci3310.planet.util.NotificationUtils;
 
 /**
  * Fragment containing the setting page.
@@ -22,64 +29,66 @@ import edu.cuhk.csci3310.planet.databinding.FragmentSettingsBinding;
 public class SettingsFragment extends Fragment implements
         View.OnClickListener {
 
-    private SettingsViewModel settingsViewModel;
+    private SettingsViewModel mSettingsViewModel;
+    private FirebaseFirestore mFirestore;
     private SharedPreferences mPreferences;
     private FragmentSettingsBinding binding;
     private SwitchCompat switch_dark_mode;
-    private EditText timezoneEditText;
     private Spinner spinner_reminder_time;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // initialize view model
-        settingsViewModel =
-                new ViewModelProvider(this).get(SettingsViewModel.class);
+        mSettingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        // enable Firestore logging
+        FirebaseFirestore.setLoggingEnabled(true);
+        // initialize Firestore
+        mFirestore = DBUtil.initFirestore();
         // get shared preference
         String sharedPrefFile = "edu.cuhk.csci3310.planet";
         if (getActivity() != null) {
             mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+            mSettingsViewModel.setEmail(mPreferences.getString("email", null));
+            mSettingsViewModel.setDarkMode(mPreferences.getBoolean("dark_mode", false));
+            mSettingsViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
         }
-        settingsViewModel.setDarkMode(mPreferences.getBoolean("dark_mode", false));
-        settingsViewModel.setTimezone(mPreferences.getInt("timezone", 8));
-        settingsViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
         // initialize view
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         switch_dark_mode = root.findViewById(R.id.switch_dark_mode);
-        timezoneEditText = root.findViewById(R.id.editText_timezone);
         spinner_reminder_time = root.findViewById(R.id.spinner_reminder_time);
-        switch_dark_mode.setChecked(settingsViewModel.getDarkMode());
-        timezoneEditText.setText("" + settingsViewModel.getTimezone());
+        switch_dark_mode.setChecked(mSettingsViewModel.getDarkMode());
         spinner_reminder_time.setSelection(
-                getReminderSpinnerIndex(settingsViewModel.getReminderTime()));
+                getReminderSpinnerIndex(mSettingsViewModel.getReminderTime()));
         // set onClickListener
         View button_update = root.findViewById(R.id.button_update);
+        View logout_button = root.findViewById(R.id.button_logout);
         button_update.setOnClickListener(this);
+        logout_button.setOnClickListener(this);
         return root;
     }
 
     public void onUpdateClicked() {
-        if (isValidForm()) {
-            settingsViewModel.setDarkMode(getSelectedDarkMode());
-            settingsViewModel.setTimezone(getSelectedTimezone());
-            settingsViewModel.setReminderTime(getSelectedReminderTime());
-            // save setting
-            SharedPreferences.Editor preferencesEditor = mPreferences.edit();
-            preferencesEditor.putBoolean("dark_mode", settingsViewModel.getDarkMode());
-            preferencesEditor.putInt("timezone", settingsViewModel.getTimezone());
-            preferencesEditor.putInt("reminder_time", settingsViewModel.getReminderTime());
-            preferencesEditor.apply();
-            // display update message
-            Toast updateToast = Toast.makeText(getContext(),
-                    R.string.setting_updated,
-                    Toast.LENGTH_LONG);
-            updateToast.show();
-        } else {
-            Toast invalidToast = Toast.makeText(getContext(),
-                    R.string.invalid_input,
-                    Toast.LENGTH_LONG);
-            invalidToast.show();
+        int old_reminder_time = mSettingsViewModel.getReminderTime();
+        int new_reminder_time = getSelectedReminderTime();
+        mSettingsViewModel.setDarkMode(getSelectedDarkMode());
+        mSettingsViewModel.setReminderTime(new_reminder_time);
+        // save setting
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        preferencesEditor.putBoolean("dark_mode", mSettingsViewModel.getDarkMode());
+        preferencesEditor.putInt("reminder_time", mSettingsViewModel.getReminderTime());
+        preferencesEditor.apply();
+        // update notification
+        if (new_reminder_time != old_reminder_time) {
+            NotificationUtils.reminderNotification(getContext(), mFirestore,
+                    mSettingsViewModel.getEmail(),
+                    mSettingsViewModel.getReminderTime());
         }
+        // display update message
+        Toast updateToast = Toast.makeText(getContext(),
+                R.string.setting_updated,
+                Toast.LENGTH_LONG);
+        updateToast.show();
     }
 
     @Override
@@ -90,19 +99,6 @@ public class SettingsFragment extends Fragment implements
 
     private boolean getSelectedDarkMode() {
         return null != switch_dark_mode && switch_dark_mode.isChecked();
-    }
-
-    private int getSelectedTimezone() {
-        String selected = timezoneEditText.getText().toString();
-        int factor = selected.startsWith("-") ? -1 : 1;
-        int start = selected.startsWith("+") || selected.startsWith("-") ? 1 : 0;
-        int value;
-        try {
-            value = Integer.parseInt(selected.substring(start), 10);
-        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-            return 8;
-        }
-        return factor * value;
     }
 
     private int getSelectedReminderTime() {
@@ -145,15 +141,18 @@ public class SettingsFragment extends Fragment implements
         }
     }
 
-    public boolean isValidForm() {
-        int timezone = getSelectedTimezone();
-        return timezone >= -12 && timezone <= 14;
-    }
-
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.button_update) {
+        int id = view.getId();
+        if (id == R.id.button_update) {
             onUpdateClicked();
+        }  else if (id == R.id.button_logout) {
+            mSettingsViewModel.setIsSignedIn(false);
+            mSettingsViewModel.setEmail(null);
+            MainActivity mainActivity = (MainActivity) this.getActivity();
+            if (mainActivity != null){
+                mainActivity.startSignOut();
+            }
         }
     }
 }
