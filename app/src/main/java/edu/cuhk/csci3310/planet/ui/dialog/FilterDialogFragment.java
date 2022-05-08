@@ -88,6 +88,16 @@ public class FilterDialogFragment extends DialogFragment implements
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_cancel) {
+            onCancelClicked();
+        } else if (id == R.id.button_search) {
+            onSearchClicked();
+        }
+    }
+
     public void onCancelClicked() {
         resetFilters();
         dismiss();
@@ -154,22 +164,6 @@ public class FilterDialogFragment extends DialogFragment implements
         return getString(R.string.showPast_true).equals(selected);
     }
 
-    public void resetFilters() {
-        if (mRootView != null) {
-            nameEditText.setText("");
-            tagEditText.setText("");
-            deadlineEditText.setText("");
-            deadlineConstraint.setSelection(0);
-            progressEditText.setText("");
-            importanceSpinner.setSelection(0);
-            showPastSpinner.setSelection(0);
-        }
-    }
-
-    public void setShouldResetFilter(boolean shouldResetFilter) {
-        this.shouldResetFilter = shouldResetFilter;
-    }
-
     public Filters getFilters() {
         Filters filters = new Filters();
         if (mRootView != null) {
@@ -184,13 +178,19 @@ public class FilterDialogFragment extends DialogFragment implements
         return filters;
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.button_cancel) {
-            onCancelClicked();
-        } else if (id == R.id.button_search) {
-            onSearchClicked();
+    public void setShouldResetFilter(boolean shouldResetFilter) {
+        this.shouldResetFilter = shouldResetFilter;
+    }
+
+    public void resetFilters() {
+        if (mRootView != null) {
+            nameEditText.setText("");
+            tagEditText.setText("");
+            deadlineEditText.setText("");
+            deadlineConstraint.setSelection(0);
+            progressEditText.setText("");
+            importanceSpinner.setSelection(0);
+            showPastSpinner.setSelection(0);
         }
     }
 }

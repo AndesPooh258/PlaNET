@@ -149,6 +149,16 @@ public class RequestDialogFragment extends DialogFragment implements
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_request_cancel) {
+            onCancelClicked();
+        } else if (id == R.id.button_request_done) {
+            onDoneClicked();
+        }
+    }
+
     public void onCancelClicked() {
         resetForm();
         dismiss();
@@ -325,15 +335,5 @@ public class RequestDialogFragment extends DialogFragment implements
             }
         }
         return true;
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.button_request_cancel) {
-            onCancelClicked();
-        } else if (id == R.id.button_request_done) {
-            onDoneClicked();
-        }
     }
 }

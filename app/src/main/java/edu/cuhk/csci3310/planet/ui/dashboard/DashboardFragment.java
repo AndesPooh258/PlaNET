@@ -41,7 +41,6 @@ public class DashboardFragment extends Fragment implements
     static final String mDrawableFilePath = "android.resource://edu.cuhk.csci3310.planet/drawable/";
     private DashboardViewModel mDashboardViewModel;
     private FirebaseFirestore mFirestore;
-    private SharedPreferences mPreferences;
     private FragmentDashboardBinding binding;
     private RequestDialogFragment mRequestDialog;
     private ImageView imageItemView;
@@ -65,7 +64,7 @@ public class DashboardFragment extends Fragment implements
         // get shared preference
         String sharedPrefFile = "edu.cuhk.csci3310.planet";
         if (getActivity() != null) {
-            mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+            SharedPreferences mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
             mDashboardViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
         }
         // initialize view
@@ -104,6 +103,29 @@ public class DashboardFragment extends Fragment implements
                 updateDashboard();
             }
         }
+    }
+
+    @Override
+    public void onChange(Work work) {
+        updateDashboard();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.button_add){
+            onAddWorkClicked();
+        }
+    }
+
+    public void onAddWorkClicked() {
+        // show the dialog containing add work form
+        mRequestDialog.show(getParentFragmentManager(), null);
     }
 
     public int getWeight(Work work, String currentTime) {
@@ -201,29 +223,6 @@ public class DashboardFragment extends Fragment implements
                     R.string.user_stat_completed, mDashboardViewModel.getWorkCompleted()));
             todoTextView.setText(getActivity().getString(
                     R.string.user_stat_todo, mDashboardViewModel.getWorkTodo()));
-        }
-    }
-
-    public void addWork() {
-        // show the dialog containing add work form
-        mRequestDialog.show(getParentFragmentManager(), null);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
-    @Override
-    public void onChange(Work work) {
-        updateDashboard();
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.button_add){
-            addWork();
         }
     }
 }

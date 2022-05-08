@@ -17,11 +17,11 @@ public class ReminderBroadcast extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // get intent
         String title = (String) intent.getExtras().get(NotificationUtils.NAME_MESSAGE);
-        String time = (String) intent.getExtras().get(NotificationUtils.TIME_MESSAGE);
+        String reminder_time = (String) intent.getExtras().get(NotificationUtils.TIME_MESSAGE);
         // build and display notification
         NotificationUtils notificationUtils = new NotificationUtils(context);
         NotificationCompat.Builder builder = notificationUtils.setNotification(
-                "Deadline approaching", title + " dues in " + time);
+                "Deadline approaching", title + " dues in " + reminder_time);
         notificationUtils.getManager().notify(42, builder.build());
     }
 }

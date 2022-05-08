@@ -68,6 +68,27 @@ public class SettingsFragment extends Fragment implements
         return root;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_update) {
+            onUpdateClicked();
+        }  else if (id == R.id.button_logout) {
+            mSettingsViewModel.setIsSignedIn(false);
+            mSettingsViewModel.setEmail(null);
+            MainActivity mainActivity = (MainActivity) this.getActivity();
+            if (mainActivity != null){
+                mainActivity.startSignOut();
+            }
+        }
+    }
+
     public void onUpdateClicked() {
         int old_reminder_time = mSettingsViewModel.getReminderTime();
         int new_reminder_time = getSelectedReminderTime();
@@ -89,12 +110,6 @@ public class SettingsFragment extends Fragment implements
                 R.string.setting_updated,
                 Toast.LENGTH_LONG);
         updateToast.show();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
     private boolean getSelectedDarkMode() {
@@ -138,21 +153,6 @@ public class SettingsFragment extends Fragment implements
                 return 7;
             default:
                 return 0;
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.button_update) {
-            onUpdateClicked();
-        }  else if (id == R.id.button_logout) {
-            mSettingsViewModel.setIsSignedIn(false);
-            mSettingsViewModel.setEmail(null);
-            MainActivity mainActivity = (MainActivity) this.getActivity();
-            if (mainActivity != null){
-                mainActivity.startSignOut();
-            }
         }
     }
 }

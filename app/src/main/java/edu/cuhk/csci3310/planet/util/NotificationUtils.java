@@ -63,16 +63,22 @@ public class NotificationUtils extends ContextWrapper {
         return notificationManager;
     }
 
-    public void setReminder(int id, String name, String time, long timeInMillis) {
+    /**
+     * Set a reminder based on the name, reminder time, and display time
+     */
+    public void setReminder(int id, String name, String reminder_time, long timeInMillis) {
         Intent intent = new Intent(context, ReminderBroadcast.class);
         intent.putExtra(NAME_MESSAGE, name);
-        intent.putExtra(TIME_MESSAGE, time);
+        intent.putExtra(TIME_MESSAGE, reminder_time);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context, id, intent, FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
     }
 
+    /**
+     * Set reminders based on the to-do tasks in Firestore
+     */
     public static void reminderNotification(Context context, FirebaseFirestore mFirestore,
                                             String email, int reminder_time) {
         if (reminder_time > 0 && mFirestore != null && context != null) {
@@ -98,6 +104,9 @@ public class NotificationUtils extends ContextWrapper {
         }
     }
 
+    /**
+     * Get reminder time represented as a string
+     */
     public String getReminderTimeString(int reminder_time) {
         if (reminder_time < 0){
             return "No reminder";

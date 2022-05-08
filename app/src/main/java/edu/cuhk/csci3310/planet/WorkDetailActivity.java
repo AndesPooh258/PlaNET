@@ -82,38 +82,9 @@ public class WorkDetailActivity extends AppCompatActivity implements
         } else onBackPressed();
     }
 
-    public void updateUI(Work work) {
-        if (work != null) {
-            Uri uri = Uri.parse(mDrawableFilePath + "image_" + work.getIcon());
-            imageDetailView.setImageURI(uri);
-            nameTextView.setText(work.getTitle());
-            deadlineTextView.setText(getString(R.string.work_ddl, work.getDeadline()));
-            progressTextView.setText(getString(R.string.work_progress, work.getProgress()));
-            progressBar.setProgress(work.getProgress());
-            importanceTextView.setText(
-                    getString(R.string.work_importance, WorkUtil.getImportanceString(work)));
-            tagsTextView.setText(getString(R.string.work_tags, WorkUtil.getTagsString(work)));
-            descriptionEditText.setText(work.getDescription());
-        }
-    }
-
-    public void editWork(View view) {
-        // show the dialog containing edit work form
-        if (!mRequestDialog.isAdded()) {
-            mRequestDialog.show(getSupportFragmentManager(), null);
-        }
-    }
-
-    public void deleteWork(View view) {
-        // delete the work
-        DBUtil.work_delete(mFirestore, mDetailViewModel.getWorkId(),
-                aVoid -> NotificationUtils.reminderNotification(getBaseContext(), mFirestore,
-                        mDetailViewModel.getEmail(),
-                        mDetailViewModel.getReminderTime()));
-        onBackPressed();
-    }
-
-    public void backHome(View view) {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         Work work = mDetailViewModel.getWork();
         String description = getSelectedDescription();
         if (work != null) {
@@ -127,19 +98,54 @@ public class WorkDetailActivity extends AppCompatActivity implements
                 updateToast.show();
             }
         }
-        onBackPressed();
     }
 
     @Override
     public void onChange(Work work) {
         mDetailViewModel.setWork(work);
         mRequestDialog = RequestDialogFragment.newInstance(
-                         work.getEmail(), mDetailViewModel.getWorkId(),
-                         work, mDetailViewModel.getReminderTime());
+                work.getEmail(), mDetailViewModel.getWorkId(),
+                work, mDetailViewModel.getReminderTime());
         updateUI(work);
     }
 
     private String getSelectedDescription() {
         return descriptionEditText == null ? "" : descriptionEditText.getText().toString();
+    }
+    
+    public void editWork(View view) {
+        // show the dialog containing edit work form
+        if (!mRequestDialog.isAdded()) {
+            mRequestDialog.show(getSupportFragmentManager(), null);
+        }
+    }
+
+    public void deleteWork(View view) {
+        // delete the work
+        DBUtil.work_delete(mFirestore, mDetailViewModel.getWorkId(),
+                aVoid -> NotificationUtils.reminderNotification(getBaseContext(), mFirestore,
+                        mDetailViewModel.getEmail(),
+                        mDetailViewModel.getReminderTime()));
+        mDetailViewModel.setWork(null);
+        onBackPressed();
+    }
+
+    public void backHome(View view) {
+        onBackPressed();
+    }
+
+    public void updateUI(Work work) {
+        if (work != null) {
+            Uri uri = Uri.parse(mDrawableFilePath + "image_" + work.getIcon());
+            imageDetailView.setImageURI(uri);
+            nameTextView.setText(work.getTitle());
+            deadlineTextView.setText(getString(R.string.work_ddl, work.getDeadline()));
+            progressTextView.setText(getString(R.string.work_progress, work.getProgress()));
+            progressBar.setProgress(work.getProgress());
+            importanceTextView.setText(
+                    getString(R.string.work_importance, WorkUtil.getImportanceString(work)));
+            tagsTextView.setText(getString(R.string.work_tags, WorkUtil.getTagsString(work)));
+            descriptionEditText.setText(work.getDescription());
+        }
     }
 }

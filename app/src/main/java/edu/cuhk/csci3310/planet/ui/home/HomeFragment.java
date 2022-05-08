@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment implements
     public static final String WORK_MESSAGE = "edu.cuhk.csci3310.planet.work.MESSAGE";
     private HomeViewModel mHomeViewModel;
     private FirebaseFirestore mFirestore;
-    private SharedPreferences mPreferences;
     private WorkAdapter mAdapter;
     private Query mQuery;
     private FragmentHomeBinding binding;
@@ -71,7 +70,7 @@ public class HomeFragment extends Fragment implements
         // get shared preference
         String sharedPrefFile = "edu.cuhk.csci3310.planet";
         if (getActivity() != null) {
-            mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+            SharedPreferences mPreferences = getActivity().getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
             mHomeViewModel.setReminderTime(mPreferences.getInt("reminder_time", -1));
         }
         // initialize view
@@ -130,30 +129,14 @@ public class HomeFragment extends Fragment implements
         binding = null;
     }
 
-    private void initRecyclerView() {
-        mAdapter = new WorkAdapter(mQuery, this) {
-            @Override
-            protected void onDataChanged() {
-                // show/hide content if the query returns empty
-                if (getItemCount() == 0) {
-                    mWorksRecycler.setVisibility(View.GONE);
-                    mEmptyView.setVisibility(View.VISIBLE);
-                } else {
-                    mWorksRecycler.setVisibility(View.VISIBLE);
-                    mEmptyView.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            protected void onError(FirebaseFirestoreException e) {
-                // show a snackbar on errors
-                if (getView() != null) {
-                    Snackbar.make(getView().findViewById(android.R.id.content),
-                            "Error: check logs for info.", Snackbar.LENGTH_LONG).show();
-                }
-            }
-        };
-        mWorksRecycler.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mWorksRecycler.setAdapter(mAdapter);
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.filter_bar) {
+            onFilterClicked();
+        } else if (id == R.id.button_clear_filter) {
+            onClearFilterClicked();
+        }
     }
 
     @Override
@@ -167,19 +150,6 @@ public class HomeFragment extends Fragment implements
         if (this.getContext() != null) {
             this.getContext().startActivity(intent);
         }
-    }
-
-    public void onFilterClicked() {
-        // show the dialog containing filter options
-        if (!mFilterDialog.isAdded()) {
-            mFilterDialog.show(getParentFragmentManager(), null);
-        }
-    }
-
-    public void onClearFilterClicked() {
-        // reset the filter as default
-        mFilterDialog.setShouldResetFilter(true);
-        onFilter(Filters.getDefault());
     }
 
     @Override
@@ -240,13 +210,42 @@ public class HomeFragment extends Fragment implements
         mHomeViewModel.setFilters(filters);
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.filter_bar) {
-            onFilterClicked();
-        } else if (id == R.id.button_clear_filter) {
-            onClearFilterClicked();
+    public void onFilterClicked() {
+        // show the dialog containing filter options
+        if (!mFilterDialog.isAdded()) {
+            mFilterDialog.show(getParentFragmentManager(), null);
         }
+    }
+
+    public void onClearFilterClicked() {
+        // reset the filter as default
+        mFilterDialog.setShouldResetFilter(true);
+        onFilter(Filters.getDefault());
+    }
+
+    private void initRecyclerView() {
+        mAdapter = new WorkAdapter(mQuery, this) {
+            @Override
+            protected void onDataChanged() {
+                // show/hide content if the query returns empty
+                if (getItemCount() == 0) {
+                    mWorksRecycler.setVisibility(View.GONE);
+                    mEmptyView.setVisibility(View.VISIBLE);
+                } else {
+                    mWorksRecycler.setVisibility(View.VISIBLE);
+                    mEmptyView.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            protected void onError(FirebaseFirestoreException e) {
+                // show a snackbar on errors
+                if (getView() != null) {
+                    Snackbar.make(getView().findViewById(android.R.id.content),
+                            "Error: check logs for info.", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        };
+        mWorksRecycler.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mWorksRecycler.setAdapter(mAdapter);
     }
 }
