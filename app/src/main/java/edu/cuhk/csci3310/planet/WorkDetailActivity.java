@@ -113,14 +113,14 @@ public class WorkDetailActivity extends AppCompatActivity implements
         return descriptionEditText == null ? "" : descriptionEditText.getText().toString();
     }
     
-    public void editWork(View view) {
+    public void onEditClicked(View view) {
         // show the dialog containing edit work form
         if (!mRequestDialog.isAdded()) {
             mRequestDialog.show(getSupportFragmentManager(), null);
         }
     }
 
-    public void deleteWork(View view) {
+    public void onDeleteClicked(View view) {
         // delete the work
         DBUtil.work_delete(mFirestore, mDetailViewModel.getWorkId(),
                 aVoid -> NotificationUtils.reminderNotification(getBaseContext(), mFirestore,
@@ -130,7 +130,7 @@ public class WorkDetailActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
-    public void backHome(View view) {
+    public void onBackClicked(View view) {
         onBackPressed();
     }
 

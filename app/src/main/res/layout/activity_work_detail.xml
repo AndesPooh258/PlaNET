@@ -118,7 +118,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/edit_work"
-        android:onClick="editWork" />
+        android:onClick="onEditClicked" />
 
     <Button
         android:id="@+id/button_delete"
@@ -129,7 +129,7 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/button_edit"
         android:text="@string/delete_work"
-        android:onClick="deleteWork" />
+        android:onClick="onDeleteClicked" />
 
     <Button
         android:id="@+id/button_back"
@@ -140,6 +140,6 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/button_delete"
         android:text="@string/back_home"
-        android:onClick="backHome" />
+        android:onClick="onBackClicked" />
 
 </RelativeLayout>

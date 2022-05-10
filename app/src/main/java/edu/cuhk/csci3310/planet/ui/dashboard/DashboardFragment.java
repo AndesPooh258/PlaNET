@@ -119,11 +119,11 @@ public class DashboardFragment extends Fragment implements
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.button_add){
-            onAddWorkClicked();
+            onAddClicked();
         }
     }
 
-    public void onAddWorkClicked() {
+    public void onAddClicked() {
         // show the dialog containing add work form
         mRequestDialog.show(getParentFragmentManager(), null);
     }
