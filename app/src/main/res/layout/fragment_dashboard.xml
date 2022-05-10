@@ -1,145 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/filters_form"
+    android:id="@+id/layout_dashboard"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
-
-    <TextView
-        style="@style/Theme.PlaNET.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/recommended_task" />
-
-    <include
-        layout="@layout/item_work"
-        android:id="@+id/recommended_work">
-    </include>
-
-    <TextView
-        style="@style/Theme.PlaNET.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/work_statistics" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_all"
-            style="@style/Theme.PlaNET.DashboardIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_all_task"
-            app:tint="?attr/colorTertiary" />
-
-        <TextView
-            android:id="@+id/textView_all"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:layout_marginBottom="8dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_all"
-            android:textSize="@dimen/title"
-            android:text="@string/all_tasks" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_completed"
-            style="@style/Theme.PlaNET.DashboardIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_completed_task"
-            app:tint="?attr/colorTertiary" />
-
-        <TextView
-            android:id="@+id/textView_completed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:layout_marginBottom="8dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_completed"
-            android:textSize="@dimen/title"
-            android:text="@string/completed_tasks" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_todo"
-            style="@style/Theme.PlaNET.DashboardIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_todo_task"
-            app:tint="?attr/colorTertiary" />
-
-        <TextView
-            android:id="@+id/textView_todo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:layout_marginBottom="8dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_todo"
-            android:textSize="@dimen/title"
-            android:text="@string/to_do_tasks" />
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/button_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#673AB7"
-        android:text="@string/add_task"
-        android:textAlignment="center"
-        android:textColor="#F8F8F8"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_update"
-        android:theme="@style/ThemeOverlay.FilterButton" />
+    android:layout_height="match_parent"
+    android:padding="8dp" >
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="8dp">
 
-        <!--<Button
-            android:id="@+id/button_add"
-            android:layout_width="0dp"
+        <TextView
+            style="@style/Theme.PlaNET.Title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="4dp"
-            android:text="@string/add_task"
-            android:theme="@style/ThemeOverlay.FilterButton" />
+            android:layout_marginBottom="8dp"
+            android:text="@string/recommended_task" />
+
+        <include
+            layout="@layout/item_work"
+            android:id="@+id/recommended_work">
+        </include>
+
+        <TextView
+            style="@style/Theme.PlaNET.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/work_statistics" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_all"
+                style="@style/Theme.PlaNET.DashboardIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_all_task"
+                app:tint="?attr/colorTertiary" />
+
+            <TextView
+                android:id="@+id/textView_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_all"
+                android:textSize="@dimen/title"
+                android:text="@string/all_tasks" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_completed"
+                style="@style/Theme.PlaNET.DashboardIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_completed_task"
+                app:tint="?attr/colorTertiary" />
+
+            <TextView
+                android:id="@+id/textView_completed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_completed"
+                android:textSize="@dimen/title"
+                android:text="@string/completed_tasks" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_todo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_todo"
+                style="@style/Theme.PlaNET.DashboardIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_todo_task"
+                app:tint="?attr/colorTertiary" />
+
+            <TextView
+                android:id="@+id/textView_todo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_todo"
+                android:textSize="@dimen/title"
+                android:text="@string/to_do_tasks" />
+
+        </RelativeLayout>
 
         <Button
-            android:id="@+id/button_logout"
-            android:layout_width="0dp"
+            android:id="@+id/button_add"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/log_out"
-            android:theme="@style/ThemeOverlay.FilterButton" />-->
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#673AB7"
+            android:text="@string/add_task"
+            android:textAlignment="center"
+            android:textColor="#F8F8F8"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_todo"
+            android:theme="@style/ThemeOverlay.FilterButton" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/button_add" />
 
     </LinearLayout>
-</LinearLayout>
+
+</ScrollView>

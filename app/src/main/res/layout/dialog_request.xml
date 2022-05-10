@@ -1,234 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/filters_form"
+    android:id="@+id/request_form"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp" >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/request_header"
-        style="@style/Theme.PlaNET.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/header_request" />
-
-    <!-- Name -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_work_name"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_name"
-            app:tint="@color/greySecondary" />
-
-        <EditText
-            android:id="@+id/editText_work_name"
-            style="@style/Theme.PlaNET.FilterEditText"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_work_name"
-            android:autofillHints="Input Work Name"
-            android:hint="@string/input_work_name"
-            android:inputType="text"
-            android:text="" />
-
-    </RelativeLayout>
-
-    <!-- Icon -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_work_ic"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_icon"
-            app:tint="@color/greySecondary" />
-
-        <Spinner
-            android:id="@+id/spinner_ic"
-            style="@style/Theme.PlaNET.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_work_ic"
-            android:entries="@array/icons" />
-
-    </RelativeLayout>
-
-    <!-- Tags -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon1_work_tags"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_tag"
-            app:tint="@color/greySecondary" />
-
-        <Spinner
-            android:id="@+id/spinner_has_tags"
-            style="@style/Theme.PlaNET.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon1_work_tags"
-            android:entries="@array/has_tags" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon2_work_tags"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:tint="@color/greySecondary" />
-
-        <EditText
-            android:id="@+id/editText_work_tag1"
-            style="@style/Theme.PlaNET.FilterEditText"
-            android:layout_width="156dp"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon2_work_tags"
-            android:autofillHints="Tag 1 (Optional)"
-            android:hint="@string/input_work_tag1"
-            android:inputType="text"
-            android:text="" />
-
-        <EditText
-            android:id="@+id/editText_work_tag2"
-            style="@style/Theme.PlaNET.FilterEditText"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/editText_work_tag1"
-            android:autofillHints="Tag 2 (Optional)"
-            android:hint="@string/input_work_tag2"
-            android:inputType="text"
-            android:text="" />
-
-    </RelativeLayout>
-
-    <!-- Progress -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_work_progress"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_progress"
-            app:tint="@color/greySecondary" />
-
-        <EditText
-            android:id="@+id/editText_work_progress"
-            style="@style/Theme.PlaNET.FilterEditText"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_work_progress"
-            android:autofillHints="Input Work Progress (in %)"
-            android:hint="@string/input_work_progress"
-            android:inputType="number"
-            android:text="" />
-
-    </RelativeLayout>
-
-    <!-- Importance -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_work_importance"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_importance"
-            app:tint="@color/greySecondary" />
-
-        <Spinner
-            android:id="@+id/spinner_work_importance"
-            style="@style/Theme.PlaNET.FilterSpinner"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_work_importance"
-            android:entries="@array/work_importance" />
-
-    </RelativeLayout>
-
-    <!-- Deadline -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon_work_deadline"
-            style="@style/Theme.PlaNET.FilterIcon"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_deadline"
-            app:tint="@color/greySecondary" />
-
-        <EditText
-            android:id="@+id/editText_work_deadline"
-            style="@style/Theme.PlaNET.FilterEditText"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/icon_work_deadline"
-            android:autofillHints="Input Work Deadline (in format yyyy/MM/dd HH:mm:ss)"
-            android:hint="@string/input_work_deadline"
-            android:inputType="datetime"
-            android:text="" />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textView_work_deadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="@string/input_work_deadline_remark" />
-
-    </RelativeLayout>
-
-    <!-- Cancel and apply buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="16dp" >
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/button_request_cancel"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/request_header"
+            style="@style/Theme.PlaNET.Title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel"
-            android:textColor="@color/greySecondary"
-            android:theme="@style/ThemeOverlay.FilterButton" />
+            android:layout_marginBottom="8dp"
+            android:text="@string/header_request" />
 
-        <Button
-            android:id="@+id/button_request_done"
-            android:layout_width="0dp"
+        <!-- Name -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_work_name"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_name"
+                app:tint="@color/greySecondary" />
+
+            <EditText
+                android:id="@+id/editText_work_name"
+                style="@style/Theme.PlaNET.FilterEditText"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_work_name"
+                android:autofillHints="Input Work Name"
+                android:hint="@string/input_work_name"
+                android:inputType="text"
+                android:text="" />
+
+        </RelativeLayout>
+
+        <!-- Icon -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_work_ic"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_icon"
+                app:tint="@color/greySecondary" />
+
+            <Spinner
+                android:id="@+id/spinner_ic"
+                style="@style/Theme.PlaNET.FilterSpinner"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_work_ic"
+                android:entries="@array/icons" />
+
+        </RelativeLayout>
+
+        <!-- Tags -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon1_work_tags"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_tag"
+                app:tint="@color/greySecondary" />
+
+            <Spinner
+                android:id="@+id/spinner_has_tags"
+                style="@style/Theme.PlaNET.FilterSpinner"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon1_work_tags"
+                android:entries="@array/has_tags" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon2_work_tags"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:tint="@color/greySecondary" />
+
+            <EditText
+                android:id="@+id/editText_work_tag1"
+                style="@style/Theme.PlaNET.FilterEditText"
+                android:layout_width="156dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon2_work_tags"
+                android:autofillHints="Tag 1 (Optional)"
+                android:hint="@string/input_work_tag1"
+                android:inputType="text"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/editText_work_tag2"
+                style="@style/Theme.PlaNET.FilterEditText"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/editText_work_tag1"
+                android:autofillHints="Tag 2 (Optional)"
+                android:hint="@string/input_work_tag2"
+                android:inputType="text"
+                android:text="" />
+
+        </RelativeLayout>
+
+        <!-- Progress -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_work_progress"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_progress"
+                app:tint="@color/greySecondary" />
+
+            <EditText
+                android:id="@+id/editText_work_progress"
+                style="@style/Theme.PlaNET.FilterEditText"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_work_progress"
+                android:autofillHints="Input Work Progress (in %)"
+                android:hint="@string/input_work_progress"
+                android:inputType="number"
+                android:text="" />
+
+        </RelativeLayout>
+
+        <!-- Importance -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_work_importance"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_importance"
+                app:tint="@color/greySecondary" />
+
+            <Spinner
+                android:id="@+id/spinner_work_importance"
+                style="@style/Theme.PlaNET.FilterSpinner"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_work_importance"
+                android:entries="@array/work_importance" />
+
+        </RelativeLayout>
+
+        <!-- Deadline -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_work_deadline"
+                style="@style/Theme.PlaNET.FilterIcon"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_deadline"
+                app:tint="@color/greySecondary" />
+
+            <EditText
+                android:id="@+id/editText_work_deadline"
+                style="@style/Theme.PlaNET.FilterEditText"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/icon_work_deadline"
+                android:autofillHints="Input Work Deadline (in format yyyy/MM/dd HH:mm:ss)"
+                android:hint="@string/input_work_deadline"
+                android:inputType="datetime"
+                android:text="" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView_work_deadline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/input_work_deadline_remark" />
+
+        </RelativeLayout>
+
+        <!-- Cancel and apply buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/done"
-            android:theme="@style/ThemeOverlay.FilterButton" />
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/button_request_cancel"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:textColor="@color/greySecondary"
+                android:theme="@style/ThemeOverlay.FilterButton" />
+
+            <Button
+                android:id="@+id/button_request_done"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/done"
+                android:theme="@style/ThemeOverlay.FilterButton" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
-
+</ScrollView>

@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,14 +96,14 @@ public class DashboardFragment extends Fragment implements
                 // update view model
                 mDashboardViewModel.setEmail(user.getEmail());
                 mDashboardViewModel.setIsSignedIn(true);
-                // initialize fragment
-                String email = mDashboardViewModel.getEmail();
-                int reminder_time = mDashboardViewModel.getReminderTime();
-                mRequestDialog = RequestDialogFragment.newInstance(
-                        email, null, null, reminder_time);
-                updateDashboard();
             }
         }
+        // initialize fragment
+        String email = mDashboardViewModel.getEmail();
+        int reminder_time = mDashboardViewModel.getReminderTime();
+        mRequestDialog = RequestDialogFragment.newInstance(
+                email, null, null, reminder_time);
+        updateDashboard();
     }
 
     @Override

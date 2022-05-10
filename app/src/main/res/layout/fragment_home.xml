@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorOnPrimary"
@@ -97,6 +98,7 @@
         android:id="@+id/recycler_works"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="48dp"
         android:background="?attr/colorOnPrimary"
         app:layout_constraintTop_toBottomOf="@+id/filter_bar_container"
         tools:listitem="@layout/item_work" />
