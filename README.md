@@ -49,5 +49,6 @@ Step 9. The software executable file is in "app/build/outputs/apk/debug/app-debu
   <li> Customize Theme: users can select the theme of the planner and the icon of their tasks, which allows them to customize their planner
   <li> Authentication: users can register accounts and prevent others from accessing their app data</li>
 </ol>
+<img src="./img/ui.png" />
 
 © 2022 Andes Kei and Tracy Chan
