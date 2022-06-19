@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment implements
     private TextView mCurrentSortByView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState){
+                             ViewGroup container, Bundle savedInstanceState) {
         // initialize view model
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         // enable Firestore logging
