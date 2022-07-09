@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/message_no_results"
-            android:textColor="@color/greyDisabled" />
+            android:textColor="?attr/colorOnTertiary" />
     </LinearLayout>
 
     <ProgressBar
