@@ -184,7 +184,7 @@
                 android:layout_toEndOf="@+id/icon_work_deadline"
                 android:autofillHints="Input Work Deadline (in format yyyy/MM/dd HH:mm:ss)"
                 android:hint="@string/input_work_deadline"
-                android:inputType="datetime"
+                android:inputType="text"
                 android:text="" />
 
         </RelativeLayout>

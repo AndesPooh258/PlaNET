@@ -69,7 +69,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         // Stop listening
         stopListening();
 
-        // Clear existinkodig data
+        // Clear existing data
         mSnapshots.clear();
         notifyDataSetChanged();
 

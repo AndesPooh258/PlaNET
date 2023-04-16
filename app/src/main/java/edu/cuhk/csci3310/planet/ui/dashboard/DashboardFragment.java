@@ -169,7 +169,7 @@ public class DashboardFragment extends Fragment implements
                 if (work != null) {
                     if (work.getProgress() == 100) {
                         completed++;
-                    } else if (currentTime.compareTo(work.getDeadline()) < 0) {
+                    } else {
                         todo++;
                         todoWorks.add(work);
                         total_weight += getWeight(work, currentTime);

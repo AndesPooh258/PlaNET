@@ -36,7 +36,7 @@ public class FilterDialogFragment extends DialogFragment implements
     private Spinner importanceSpinner;
     private EditText deadlineEditText;
     private Spinner deadlineConstraint;
-    private Spinner showPastSpinner;
+    private Spinner showAllSpinner;
     private FilterListener mFilterListener;
     private boolean shouldResetFilter = false;
 
@@ -53,7 +53,7 @@ public class FilterDialogFragment extends DialogFragment implements
         importanceSpinner = mRootView.findViewById(R.id.spinner_importance);
         deadlineEditText = mRootView.findViewById(R.id.editText_deadline);
         deadlineConstraint = mRootView.findViewById(R.id.constraint_deadline);
-        showPastSpinner = mRootView.findViewById(R.id.spinner_showPast);
+        showAllSpinner = mRootView.findViewById(R.id.spinner_showAll);
         // set onClickListener
         View button_cancel = mRootView.findViewById(R.id.button_cancel);
         View button_search = mRootView.findViewById(R.id.button_search);
@@ -159,9 +159,9 @@ public class FilterDialogFragment extends DialogFragment implements
         } else return -2;
     }
 
-    private boolean getSelectedShowPast() {
-        String selected = (String) showPastSpinner.getSelectedItem();
-        return getString(R.string.showPast_true).equals(selected);
+    private boolean getSelectedShowAll() {
+        String selected = (String) showAllSpinner.getSelectedItem();
+        return getString(R.string.showAll_true).equals(selected);
     }
 
     public Filters getFilters() {
@@ -173,7 +173,7 @@ public class FilterDialogFragment extends DialogFragment implements
             filters.setDeadline_constraint(getSelectedDeadline_constraint());
             filters.setProgress(getSelectedProgress());
             filters.setImportance(getSelectedImportance());
-            filters.setShowPast(getSelectedShowPast());
+            filters.setShowAll(getSelectedShowAll());
         }
         return filters;
     }
@@ -190,7 +190,7 @@ public class FilterDialogFragment extends DialogFragment implements
             deadlineConstraint.setSelection(0);
             progressEditText.setText("");
             importanceSpinner.setSelection(0);
-            showPastSpinner.setSelection(0);
+            showAllSpinner.setSelection(0);
         }
     }
 }

@@ -19,8 +19,8 @@
     <string name="constraint_le"><![CDATA[<=]]></string>
     <string name="constraint_eq">=</string>
     <string name="constraint_ge"><![CDATA[>=]]></string>
-    <string name="showPast_false">Only Show Future Works</string>
-    <string name="showPast_true">Show All Works</string>
+    <string name="showAll_false">Only Show To-do Works</string>
+    <string name="showAll_true">Show All Works</string>
     <string name="search_by_name">Search by Name</string>
     <string name="search_by_tag">Search by Tag</string>
     <string name="search_by_progress">Search by Progress (in %)</string>
@@ -123,9 +123,9 @@
         <item>@string/time7</item>
     </string-array>
 
-    <string-array name="showPast">
-        <item>@string/showPast_false</item>
-        <item>@string/showPast_true</item>
+    <string-array name="showAll">
+        <item>@string/showAll_false</item>
+        <item>@string/showAll_true</item>
     </string-array>
 
     <string-array name="icons">

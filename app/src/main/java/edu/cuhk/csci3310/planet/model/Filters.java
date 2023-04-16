@@ -17,7 +17,7 @@ public class Filters {
     private int progress = -1;
     private int importance = -1;
     private int deadline_constraint = -2; // constraint: -2 => any, -1 => le, 0 => eq, 1 => ge
-    private boolean showPast = false;
+    private boolean showAll = false;
 
     public Filters() {
     }
@@ -94,12 +94,12 @@ public class Filters {
         this.deadline_constraint = constraint;
     }
 
-    public boolean getShowPast() {
-        return showPast;
+    public boolean getShowAll() {
+        return showAll;
     }
 
-    public void setShowPast(boolean showPast) {
-        this.showPast = showPast;
+    public void setShowAll(boolean showAll) {
+        this.showAll = showAll;
     }
 
     public String getSearchDescription(Context context) {

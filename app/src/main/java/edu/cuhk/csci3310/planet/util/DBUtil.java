@@ -42,6 +42,7 @@ public class DBUtil {
         map.put("icon", work.getIcon());
         map.put("importance", work.getImportance());
         map.put("progress", work.getProgress());
+        map.put("completed", work.getCompleted());
         map.put("deadline", work.getDeadline());
         map.put("tags", work.getTags());
         map.put("description", work.getDescription());

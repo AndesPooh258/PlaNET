@@ -133,7 +133,7 @@
                 android:layout_toEndOf="@+id/icon_deadline"
                 android:autofillHints="Search by Deadline"
                 android:hint="@string/search_by_deadline"
-                android:inputType="datetime"
+                android:inputType="text"
                 android:text="" />
 
             <Spinner
@@ -145,24 +145,24 @@
 
         </RelativeLayout>
 
-        <!-- Show past works -->
+        <!-- Show all works -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/icon_showPast"
+                android:id="@+id/icon_showAll"
                 style="@style/Theme.PlaNET.FilterIcon"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_showpast"
+                app:srcCompat="@drawable/ic_showall"
                 app:tint="@color/greySecondary" />
 
             <Spinner
-                android:id="@+id/spinner_showPast"
+                android:id="@+id/spinner_showAll"
                 style="@style/Theme.PlaNET.FilterSpinner"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/icon_showPast"
-                android:entries="@array/showPast" />
+                android:layout_toEndOf="@+id/icon_showAll"
+                android:entries="@array/showAll" />
 
         </RelativeLayout>
 

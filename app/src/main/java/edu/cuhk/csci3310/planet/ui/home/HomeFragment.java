@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -192,10 +193,13 @@ public class HomeFragment extends Fragment implements
         if (filters.hasImportance()) {
             query = query.whereEqualTo("importance", filters.getImportance());
         }
-        // show past filter
-        if (!filters.getShowPast()) {
+        // show all filter
+        if (!filters.getShowAll()) {
             String currentTime = WorkUtil.getCurrentTimeString();
-            query = query.whereGreaterThanOrEqualTo("deadline", currentTime);
+            query = query.where(
+                    Filter.or(Filter.greaterThanOrEqualTo("deadline", currentTime),
+                            Filter.equalTo("completed", false))
+            );
         }
         // sort with deadlines by ascending order
         query = query.orderBy(Work.FIELD_DEADLINE, Query.Direction.ASCENDING);
